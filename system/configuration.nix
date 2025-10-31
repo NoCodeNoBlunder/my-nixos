@@ -29,11 +29,9 @@ console = {
   services.xserver = {
       enable = true;
        windowManager.qtile.enable = true;
-      
   };
 
   services.displayManager.ly.enable = true;
-
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
