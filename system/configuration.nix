@@ -53,10 +53,10 @@ console = {
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
  users.users.fabian = {
-   isNormalUser = true;
-   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-   packages = with pkgs; [
-     tree
+		isNormalUser = true;
+		extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+		packages = with pkgs; [
+
    ];
  };
 
@@ -65,9 +65,15 @@ console = {
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-     vim
-     git
-     alacritty
+			vim
+			git
+			gcc
+			gnumake
+			tree
+			ripgrep
+			bat
+			alacritty # Terminal
+			unzip
   ];
   
    fonts.packages = with pkgs; [
