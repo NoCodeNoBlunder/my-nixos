@@ -13,6 +13,12 @@
          };
     };
 
-    # Declerative Symlinks
+    # Declerative Symlinks: Source is copied to store and then symlinks go into store
     home.file.".gitconfig".source = ./dotfiles/gitconfig;
+
+    home.packages = with pkgs; [
+    	gh # GitHub CLI tool for authentification allows to add public keys to git repo
+	neovim
+    ];
+   
 }
