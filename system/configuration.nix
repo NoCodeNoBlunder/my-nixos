@@ -67,6 +67,7 @@ console = {
   environment.systemPackages = with pkgs; [
 			vim
 			git
+			gh # GitHub CLI tool for authentification allows to add public keys to git repo
 			gcc
 			gnumake
 			tree

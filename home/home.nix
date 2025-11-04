@@ -17,7 +17,6 @@
     home.file.".gitconfig".source = ./dotfiles/gitconfig; # TODO: Change this path
 
     home.packages = with pkgs; [
-    	gh # GitHub CLI tool for authentification allows to add public keys to git repo
 	neovim
     ];
 
@@ -26,7 +25,7 @@
     # where most software on linux expects the configuration
 
     xdg.configFile."nvim" = {
-	source = config.lib.file.mkOutOfStoreSymlink "/home/fabian/dotfiles/nvim";
+	source = config.lib.file.mkOutOfStoreSymlink "/home/fabian/my-nixos/home/dotfiles/nvim";
 	recursive = true; # recursive is needed for directories
     };
     # home.file.".config/nvim".source = config.file.mkOutOfStoreSymlink "/home/fabian/dotfiles/nvim";
