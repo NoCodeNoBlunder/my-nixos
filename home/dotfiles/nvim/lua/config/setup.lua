@@ -79,11 +79,11 @@ opt.wrap = true
 opt.showbreak = "↪ "
 
 -- Actual stuff: affects editing behavior and file content (indentation, formatting)
-opt.shiftwidth = 2
-opt.expandtab = false
-opt.softtabstop = 2
-opt.autoindent = true
-opt.smartindent = false
+opt.expandtab = true -- If true use spaces instead of actual tab characters
+opt.softtabstop = 4 -- number of spaces used when pressing tab
+opt.shiftwidth = 4 -- number of spaces used for auto-indentation when using < or >
+opt.autoindent = true -- Copy indent from current line when starting a new line
+opt.smartindent = true -- For languages with C-like syntax indentation increases after { and decreases after }
 opt.textwidth = 0 -- No Hard wrapping
 
 -- Optional useful actual options with defaults
