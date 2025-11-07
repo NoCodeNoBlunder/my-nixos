@@ -1,0 +1,122 @@
+
+# ----- Environment Variables ----- #
+################################
+# Path to oh-my-zsh installation
+# export ZSH="$HOME/.oh-my-zsh"
+
+# ---- Configure Environment Variables ----
+# Editor setting
+export EDITOR=nvim
+export NH_OS_FLAKE="$HOME/my-nixos"
+
+# ---- History options -------
+setopt APPEND_HISTORY              # Append history instead of overwriting
+setopt HIST_IGNORE_DUPS            # Ignore duplicate commands in history
+setopt HIST_EXPIRE_DUPS_FIRST      # Expire duplicates first when trimming history
+setopt SHARE_HISTORY               # Share history across multiple sessions
+setopt INC_APPEND_HISTORY          # Append history immediately after each command
+setopt HIST_SAVE_NO_DUPS           # Don't save duplicates when writing history file
+setopt HIST_VERIFY                 # Don't execute immediately when recalling history
+
+# ----- PATH Configuration ----- #
+#################################
+# Base PATH additions
+# export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
+# export PATH="$PATH:$HOME/.dotfiles/scripts/latex-utils"
+# export PATH="$PATH:/snap/bin"
+# export PATH="$PATH:$HOME/scripts"
+
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# ----- Oh-My-Zsh Configuration ----- #
+######################################
+ZSH_THEME="strug"
+# plugins=(git)
+# source $ZSH/oh-my-zsh.sh
+
+# ---- Suggestions plugin ----
+# Installed with apt
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history)
+# Suggestions of past commands
+# source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Accept suggestion
+bindkey '^Y' autosuggest-accept
+
+# Custom Prompt ----- #
+# Load version control info
+
+# autoload -Uz vcs_info
+# precmd() { vcs_info }
+
+# Format for Git branch and status
+# zstyle ':vcs_info:git:*' formats '%F{yellow}[%b]%f %F{green}%a%f'
+# zstyle ':vcs_info:*' enable git
+
+
+# ----- Aliases ----- #
+######################
+
+# Zoxide (Smart Directory Navigation) 
+# eval "$(zoxide init --cmd z zsh)"
+# function cd() {
+#   if [[ "$1" == "--" ]]; then
+#     builtin cd "$@"
+#   else
+#     z "$@" || builtin cd "$@"
+#   fi
+# }
+
+# File Management
+alias ll='ls -la'
+alias todo='nvim ~/Documents/.todo.md'
+alias ls='ls --color=auto'
+alias fr="$HOME/scripts/switch_repo.sh"
+
+# Editors
+alias n='nvim'
+alias n.='nvim . '
+
+# git
+# alias gs='git status'
+# alias ga='git add'
+# alias gd='git diff --color-words'
+# alias gc='git commit'
+# alias gp='git pull'
+# alias gP='git push'
+# alias gf='git fetch'
+# alias go='git switch'
+# alias gamend='git commit --amend'
+# alias lg='lazygit'
+
+#git enhanced
+# alias gl='git log --oneline --graph --decorate -10'
+# alias gla='git log --oneline --graph --decorate --all'
+# alias gll='git log --graph --pretty=format:"%C(yellow)%h%Creset %C(blue)%an%Creset %C(green)%cr%Creset %s %C(auto)%d%Creset" --abbrev-commit'
+
+#git undo
+# alias gr='git reset'
+# alias grh='git reset --hard'
+
+# Documentation & Help
+alias help='selected_command=$(tldr -l | fzf --preview "tldr -C {1}" --preview-window=right,70%); tldr -C "$selected_command"'
+alias helpman='selected_command=$(man -k . | awk "{split(\$0, a, \"(\"); print a[1]}" | fzf --preview "man {1}" --preview-window=right,70%); man "$selected_command"'
+
+# Python
+alias env_create="python3 -m venv .env"
+alias act="source .env/bin/activate"
+
+ZAS=$(nix eval --raw nixpkgs#zsh-autosuggestions.outPath)
+ZSHH=$(nix eval --raw nixpkgs#zsh-syntax-highlighting.outPath)
+ZSH=$(nix eval --raw nixpkgs#oh-my-zsh.outPath)
+
+source "$ZAS/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$ZSHH/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$ZSH/share/oh-my-zsh/oh-my-zsh.sh"
+
+# eval "$(/bin/brew shellenv)"
+
+# ----- Zellij Auto-Start ----- #
+##############################
+# if [ -z "$ZELLIJ" ]; then
+#     zellij
+# fi
+

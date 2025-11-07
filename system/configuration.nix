@@ -57,6 +57,8 @@
         packages = with pkgs; [
 
         ];
+        # default login shell
+        shell = pkgs.zsh;
     };
 
     # White list non free nixpkgs
@@ -65,6 +67,14 @@
     ];
 
     programs.firefox.enable = true;
+    
+    programs.zsh = {
+        enable = true;
+        # ohMyZsh = {
+        #     enable = true;
+        #     plugins = [ "git"];
+        # };
+    };
 
     # List packages installed in system profile.
     # You can use https://search.nixos.org/ to find more packages (and options).
