@@ -23,15 +23,6 @@
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-    # Enable the X11 windowing system.
-    # services.xserver.enable = true;
-    services.xserver = {
-        enable = true;
-        windowManager.qtile.enable = true;
-    };
-
-    services.displayManager.ly.enable = true;
-
     # Configure keymap in X11
     # services.xserver.xkb.layout = "us";
     # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -67,18 +58,16 @@
     ];
 
     programs.firefox.enable = true;
-    
+
+    # TODO Must: I really enable it twice
     programs.zsh = {
         enable = true;
-        # ohMyZsh = {
-        #     enable = true;
-        #     plugins = [ "git"];
-        # };
     };
 
     # List packages installed in system profile.
     # You can use https://search.nixos.org/ to find more packages (and options).
     environment.systemPackages = with pkgs; [
+        home-manager
         vim
         git
         gh # GitHub CLI tool for authentification allows to add public keys to git repo

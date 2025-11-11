@@ -2,7 +2,7 @@
 
 {
     home.username = "fabian";
-    # home.homeDirectory = "/home/fabian/";
+    home.homeDirectory = "/home/fabian";
     home.stateVersion = "25.05";
 
     # There is modules in Homemanager for certain pkgs
@@ -13,12 +13,53 @@
     #     };
     # };
 
-    # programs.zsh = {
-    #     enable = true;
-    #     shellAliases = {
-    #         btw = "echo I use nixos, btw";
-    #     };
-    # };
+    # --- Zsh nix configuration ---
+    programs.zsh = {
+        enable = true;
+        autosuggestion.enable = true;
+
+        oh-my-zsh = {
+            enable = true;
+            plugins = [ "git" "zoxide"];
+            theme = "nicoulaj";
+        };
+
+        # Add plugins not managed my oh-my-zsh
+        plugins = [
+            # {
+            #     name = "zsh-autosuggestions";
+            #     src = pkgs.zsh-autosuggestions;
+            #     # Relative path to installation in nix/store
+            #     file = "share/zsh-autosuggestions/zsh-autosuggestions.zsh";
+            # }
+        ];
+
+        # ---
+
+        sessionVariables = {
+            EDITOR = "nvim";
+            PAGER = "less";
+            NH_OS_FLAKE = "~/my-nixos";
+        };
+        shellAliases = {
+            btw = "echo I use nixos, btw";
+        };
+        # TODO what does this do?
+        # defaultKeymap = "nvim";
+
+        # Late initialization 
+        initContent = lib.mkOrder 1500 ''
+            # Workarround
+            [ -f "$HOME/my-nixos/home/dotfiles/zsh/zshrc" ] && source "$HOME/my-nixos/home/dotfiles/zsh/zshrc"
+
+            # ${builtins.readFile ./dotfiles/zsh/zshrc}
+        '';
+    };
+
+    programs.zoxide = {
+        enable = true;
+        enableZshIntegration = true;
+    };
 
     # Declerative Symlinks: Source is copied to store and then symlinks go into store
     home.file.".gitconfig".source = ./dotfiles/gitconfig; # TODO: Change this path
@@ -40,18 +81,21 @@
         neovim
         # vimPlugins.lazy-nvim
         # vimPlugins.telescope-nvim
-        zsh-autosuggestions
-        zsh-syntax-highlighting
-        zsh-completions
+        # zsh-autosuggestions
+        # zsh-syntax-highlighting
+        # zsh-completions
         # oh-my-zsh
         lazygit
+        btop
+        fzf
+        just
     ];
 
     # TODO hardcoded absolute paths use something like this: ${config.home.homeDirectory}
-    home.file.".zshrc" = {
-        source = config.lib.file.mkOutOfStoreSymlink "/home/fabian/my-nixos/home/dotfiles/zsh/zshrc";
-        # recursive = true;  # Needed because it's a directory
-    };
+    # home.file.".zshrc" = {
+    #     source = config.lib.file.mkOutOfStoreSymlink "/home/fabian/my-nixos/home/dotfiles/zsh/zshrc";
+    #     # recursive = true;  # Needed because it's a directory
+    # };
 
     # Declerative Out of store Symlinks
     # XGD_CONFIG_HOME is /home/username/.config 

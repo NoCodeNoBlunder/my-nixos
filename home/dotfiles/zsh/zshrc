@@ -8,6 +8,7 @@
 # Editor setting
 export EDITOR=nvim
 export NH_OS_FLAKE="$HOME/my-nixos"
+export NOT_ARCH_BTW="It is not Arch btw, it's nix btw"
 
 # ---- History options -------
 setopt APPEND_HISTORY              # Append history instead of overwriting
@@ -29,7 +30,7 @@ setopt HIST_VERIFY                 # Don't execute immediately when recalling hi
 # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # ----- Oh-My-Zsh Configuration ----- #
 ######################################
-ZSH_THEME="strug"
+# ZSH_THEME="strug"
 # plugins=(git)
 # source $ZSH/oh-my-zsh.sh
 
@@ -57,18 +58,18 @@ bindkey '^Y' autosuggest-accept
 
 # Zoxide (Smart Directory Navigation) 
 # eval "$(zoxide init --cmd z zsh)"
-# function cd() {
-#   if [[ "$1" == "--" ]]; then
-#     builtin cd "$@"
-#   else
-#     z "$@" || builtin cd "$@"
-#   fi
-# }
+function cd() {
+  if [[ "$1" == "--" ]]; then
+    builtin cd "$@"
+  else
+    z "$@" || builtin cd "$@"
+  fi
+}
 
 # File Management
 alias ll='ls -la'
 alias todo='nvim ~/Documents/.todo.md'
-alias ls='ls --color=auto'
+# alias ls='ls --color=auto'
 alias fr="$HOME/scripts/switch_repo.sh"
 
 # Editors
@@ -76,25 +77,23 @@ alias n='nvim'
 alias n.='nvim . '
 
 # git
-# alias gs='git status'
-# alias ga='git add'
-# alias gd='git diff --color-words'
-# alias gc='git commit'
-# alias gp='git pull'
-# alias gP='git push'
-# alias gf='git fetch'
-# alias go='git switch'
-# alias gamend='git commit --amend'
-# alias lg='lazygit'
-
-#git enhanced
-# alias gl='git log --oneline --graph --decorate -10'
-# alias gla='git log --oneline --graph --decorate --all'
-# alias gll='git log --graph --pretty=format:"%C(yellow)%h%Creset %C(blue)%an%Creset %C(green)%cr%Creset %s %C(auto)%d%Creset" --abbrev-commit'
-
-#git undo
-# alias gr='git reset'
-# alias grh='git reset --hard'
+alias gs='git status'
+alias ga='git add'
+alias gd='git diff --color-words'
+alias gc='git commit'
+alias gp='git pull'
+alias gP='git push'
+alias gf='git fetch'
+alias go='git switch'
+alias gamend='git commit --amend'
+alias lg='lazygit'
+# git log
+alias gl='git log --oneline --graph --decorate -10'
+alias gla='git log --oneline --graph --decorate --all'
+alias gll='git log --graph --pretty=format:"%C(yellow)%h%Creset %C(blue)%an%Creset %C(green)%cr%Creset %s %C(auto)%d%Creset" --abbrev-commit'
+# git reset
+alias gr='git reset'
+alias grh='git reset --hard'
 
 # Documentation & Help
 alias help='selected_command=$(tldr -l | fzf --preview "tldr -C {1}" --preview-window=right,70%); tldr -C "$selected_command"'
@@ -104,13 +103,13 @@ alias helpman='selected_command=$(man -k . | awk "{split(\$0, a, \"(\"); print a
 alias env_create="python3 -m venv .env"
 alias act="source .env/bin/activate"
 
-ZAS=$(nix eval --raw nixpkgs#zsh-autosuggestions.outPath)
-ZSHH=$(nix eval --raw nixpkgs#zsh-syntax-highlighting.outPath)
-ZSH=$(nix eval --raw nixpkgs#oh-my-zsh.outPath)
-
-source "$ZAS/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$ZSHH/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-source "$ZSH/share/oh-my-zsh/oh-my-zsh.sh"
+# ZAS=$(nix eval --raw nixpkgs#zsh-autosuggestions.outPath)
+# ZSHH=$(nix eval --raw nixpkgs#zsh-syntax-highlighting.outPath)
+# ZSH=$(nix eval --raw nixpkgs#oh-my-zsh.outPath)
+#
+# source "$ZAS/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# source "$ZSHH/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# source "$ZSH/share/oh-my-zsh/oh-my-zsh.sh"
 
 # eval "$(/bin/brew shellenv)"
 

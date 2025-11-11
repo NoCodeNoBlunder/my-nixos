@@ -18,15 +18,17 @@
             makeSystemfunc = { modules }: nixpkgs.lib.nixosSystem {
                 modules = modules ++ [
                     ./system/configuration.nix 
-                    home-manager.nixosModules.home-manager  
-                    {
-                        home-manager = {
-                            useGlobalPkgs = true; # what does this do?
-                            useUserPackages = true; # what does this do?
-                            users.fabian = import ./home/home.nix;
-                            backupFileExtension = "backup";
-                        };
-                    }
+                    # TODO: Decide to use Home Manager as a standalone vs not standalone version
+                    # Home Manager as Module rebuild also runs homemanager
+                    # home-manager.nixosModules.home-manager
+                    # {
+                    #     home-manager = {
+                    #         useGlobalPkgs = true; # what does this do?
+                    #         useUserPackages = true; # what does this do?
+                    #         users.fabian = import ./home/home.nix;
+                    #         backupFileExtension = "backup";
+                    #     };
+                    # }
                 ];
             };
         in
@@ -45,6 +47,19 @@
                     qtile-ly = qtile-ly-system;
                     cosmic = cosmic-system;
                     hyperland = hyperland-system;
+                };
+            # HomeManager standalone installation
+            homeConfigurations."fabian" = home-manager.lib.homeManagerConfiguration 
+                {
+                    # pkgs = nixpkgs.legacyPackages.x86_64-linux; # same pkgs as system
+                    pkgs = import nixpkgs {
+                        system = "x86_64-linux";
+                        config = { allowUnfree = true; };
+                    };
+                    modules = [
+                        ./home/home.nix
+                    ];
+                    # backupFileExtension = "backup";
                 };
         };
 }
